@@ -22,23 +22,20 @@ class views_handler_field_node_field extends views_handler_field {
   function options_form(&$form, &$form_state) {
     parent::options_form($form, $form_state);
 
-    // CCK holds the registry of available build modes, but can hardly
-    // push them as options for the node row style, so we break the normal
-    // rule of not directly relying on non-core modules.
-    if ($modes = module_invoke('content', 'build_modes')) {
-      $options = array();
-      foreach ($modes as $key => $value) {
-        if (isset($value['views style']) && $value['views style']) {
-          $options[$key] = $value['title'];
-        }
+    $entity_info = entity_get_info('node');
+    $options = array();
+    if (!empty($entity_info['view modes'])) {
+      foreach ($entity_info['view modes'] as $mode => $settings) {
+        $options[$mode] = $settings['label'];
       }
     }
-    else {
+    if (empty($options)) {
       $options = array(
         'teaser' => t('Teaser'),
         'full' => t('Full node')
       );
     }
+
     $form['build_mode'] = array(
       '#type' => 'select',
       '#options' => $options,
@@ -63,6 +60,23 @@ class views_handler_field_node_field extends views_handler_field {
   }
 
   function render($values) {
-    return theme('views_view_row_node', $this->view, $this->options, $values, $this->aliases['nid']);
+    if ($values->{$this->aliases['nid']} && ($node = node_load($values->{$this->aliases['nid']}))) {
+      $node->view = $this->view;
+      $options = $this->options;
+
+      // Detect which build module should be used.
+      $node->build_mode = (!empty($options['build_mode'])) ? $options['build_mode'] : 'full';
+
+      $content = node_view($node, $node->build_mode);
+
+      if (!$options['links']) {
+        unset($content['links']);
+      }
+      if (!empty($options['comments']) && user_access('access comments') && $node->comment) {
+        $content['comments'] = comment_node_page_additions($node);
+      }
+      return drupal_render($content);
+    }
+    return array();
   }
 }

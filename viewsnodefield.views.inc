@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Implementation of hook_views_data().
+ * Implements hook_views_data().
  */
 function viewsnodefield_views_data() {
   $data['node']['nodefield'] = array(
@@ -15,7 +15,7 @@ function viewsnodefield_views_data() {
 }
 
 /**
- * Implementation of hook_views_handlers().
+ * Implements hook_views_handlers().
  */
 function viewsnodefield_views_handlers() {
   return array(
