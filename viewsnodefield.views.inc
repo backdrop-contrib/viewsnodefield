@@ -1,10 +1,9 @@
 <?php
 
 /**
- * Implementation of hook_views_data(). 
+ * Implementation of hook_views_data().
  */
- 
- function viewsnodefield_views_data() {
+function viewsnodefield_views_data() {
   $data['node']['nodefield'] = array(
     'field' => array(
       'title' => t('Node field'),
@@ -16,13 +15,12 @@
 }
 
 /**
- * Implementation of hook_views_handlers(). 
+ * Implementation of hook_views_handlers().
  */
- 
 function viewsnodefield_views_handlers() {
   return array(
     'info' => array(
-      'path' => drupal_get_path('module', 'viewsnodefield') ,
+      'path' => drupal_get_path('module', 'viewsnodefield'),
     ),
     'handlers' => array(
       // field handlers

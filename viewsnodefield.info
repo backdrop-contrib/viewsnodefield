@@ -3,3 +3,4 @@ description = A seemingly useless module, but quite nice what that cool views pl
 package = Views
 core = 6.x
 dependencies[]  = views
+
