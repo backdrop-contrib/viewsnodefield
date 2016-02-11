@@ -1,4 +1,18 @@
 <?php
+/**
+ * @file
+ * For that cool views plugin that just doesn't support node row display.
+ */
+
+/**
+ * Implementation of hook_autoload_info().
+ */
+function viewsnodefield_autoload_info() {
+  return array(
+    // Views fields.
+    'views_handler_field_node_field' => 'views/views_handler_field_node_field.inc',
+  );
+}
 
 /**
  * Implements hook_views_api().
@@ -6,6 +20,6 @@
 function viewsnodefield_views_api() {
   return array(
     'api' => 2,
-    'path' => drupal_get_path('module', 'viewsnodefield'),
+    'path' => backdrop_get_path('module', 'viewsnodefield'),
   );
 }

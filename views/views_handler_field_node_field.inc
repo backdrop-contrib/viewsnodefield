@@ -1,4 +1,7 @@
 <?php
+/**
+ * @file
+ */
 
 /**
  * Field handler to present a node.
@@ -75,7 +78,7 @@ class views_handler_field_node_field extends views_handler_field {
       if (!empty($options['comments']) && user_access('access comments') && $node->comment) {
         $content['comments'] = comment_node_page_additions($node);
       }
-      return drupal_render($content);
+      return backdrop_render($content);
     }
     return array();
   }

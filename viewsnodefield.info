@@ -1,10 +1,5 @@
+type = module
 name = Views node field
-description = A seemingly useless module, but quite nice what that cool views plugin just doesn't support node row display.  
+description = For that cool views plugin that just doesn't support node row display.
 package = Views
-core = 7.x
-dependencies[]  = views
-
-
-files[] = views_handler_field_node_field.inc
-files[] = viewsnodefield.module
-files[] = viewsnodefield.views.inc
+backdrop = 1.x
